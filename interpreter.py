@@ -12,7 +12,8 @@ Translate
 
 """
 
-INPUT_FILENAME = "syntax.txt"
+INPUT_FILENAME = "inputText.txt"
+OUTPUT_FILENAME = "output.py"
 
 class Translator:
     def __init__(self, inputFileName :str, outputFileName :str):
@@ -25,28 +26,30 @@ class Translator:
         print("okay")
         # for every line:
             # use first word in line as key to which func to translate
-        
-        self.currentLine = self.file.readline()
-        self.currentWordList = self.currentLine.split()
-        while self.currentLine != "":
-            self.varDeclaration()
+
+        for line in self.file:
+            print(line)
+            self.currentLine = line
+            self.currentWordList = self.currentLine.split()
+            self.determineWhichStatement()
+
 
     def determineWhichStatement(self):
         # bunch of different if statements
         firstWord = self.currentWordList[0]
         if firstWord == "myHomie":
-            self.varDeclaration()
+            self.writeVarDeclaration()
 
-    def varDeclaration(self, line :str):
-        wordList = line.split(" ")
-        outputStr = f"{wordList[0]} = {wordList[2]}"
+    def writeVarDeclaration(self):
+        # myHomie i = 100
+        outputStr = f"{self.currentWordList[1]} = {self.currentWordList[3]}"
         self.outputFile.write(outputStr)
-        
 
 
 
 def main():
-
+    t = Translator(INPUT_FILENAME, OUTPUT_FILENAME)
+    t.translate()
     print("OKAY")
 
 
