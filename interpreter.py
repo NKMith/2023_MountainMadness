@@ -19,7 +19,8 @@ SYNTAX_DICTIONARY = {
     "var" : "myhomie",
     "def" : "fudge",
     "for" : "fur",
-    "print" : "whatDoYouWant"
+    "print" : "gundam",
+    "input" : "whatDoYouWant"
 }
 
 
@@ -27,12 +28,24 @@ class Translator:
     def __init__(self, inputFileName :str, outputFileName :str):
         self.file = open(inputFileName, "r")
         self.outputFile = open(outputFileName, "w+")
+
         self.currentLine = ""
+        self.processingLine = ""
         self.currentWordList = ""
 
-    def removeNewlineFromCurrentLine(self):
-        if self.currentLine[len(self.currentLine)-1] == '\n':
-            self.currentLine = self.currentLine[0:len(self.currentLine)-1]
+    def removeNewlineFromProcessedLine(self):
+        if self.processingLine[len(self.processingLine)-1] == '\n':
+            self.processingLine = self.processingLine[0:len(self.processingLine)-1]
+
+    def removeTab(self):
+        count = self.countTab()
+        self.processingLine = self.processingLine[count:len(self.processingLine)]
+
+    def countTab(self):
+        count = 0
+        while self.currentLine[count] == " ":
+            count += 1
+        return count
 
     def translate(self):
         print("okay")
@@ -44,41 +57,45 @@ class Translator:
                 continue #TODO - Try to get rid of this
 
             self.currentLine = line
-            self.removeNewlineFromCurrentLine()
-            print("INPUT: " + self.currentLine)
+            self.processingLine = line
+            self.removeNewlineFromProcessedLine()
+            self.removeTab()
             self.currentWordList = self.currentLine.split()
 
             outputStr = self.getTab()
-            outputStr += self.determineWhichStatement()
+            self.determineWhichStatement()
+            outputStr += self.processingLine
             print("WRITING STR: " + outputStr)
 
             self.outputFile.write(outputStr + '\n')
 
     def getTab(self):
-        tabStr = ""
-        count = 0
-        while self.currentLine[count] == " ":
-            tabStr += " "
-            count += 1
-        return tabStr
+        count = self.countTab()
+        return self.currentLine[0:count]
 
     def determineWhichStatement(self):
         # bunch of different if statements
+        if SYNTAX_DICTIONARY["print"] in self.processingLine:
+            self.processingLine = self.processingLine.replace(SYNTAX_DICTIONARY["print"], "print")
+
+        if SYNTAX_DICTIONARY["input"] in self.processingLine:
+            self.processingLine = self.processingLine.replace(SYNTAX_DICTIONARY["input"], "input")
+
+
         firstWord = self.currentWordList[0].lower()
         if firstWord == SYNTAX_DICTIONARY["var"]:
-            return self.getVarDeclaration()
+            self.getVarDeclaration()
         elif firstWord == SYNTAX_DICTIONARY["def"]:
-            return self.getFunctionDeclaration()
+            self.getFunctionDeclaration()
 
-        if SYNTAX_DICTIONARY["print"] in self.currentLine:
-            return self.currentLine.replace(SYNTAX_DICTIONARY["print"], "print")
-        
-        return "ERROR - NO SYNTAX MATCHED"
 
     def getVarDeclaration(self):
         # myHomie i = 100
         print("VAR DECLARATION")
-        return f"{self.currentWordList[1]} = {self.currentWordList[3]}"
+        print(self.processingLine)
+        startInd = len(SYNTAX_DICTIONARY["var"]) + 1
+        self.processingLine = self.processingLine[startInd:len(self.currentLine)]
+        #return self.processingLine[startInd:len(self.currentLine)]
         
     def getFunctionDeclaration(self):
         #fudge funcName(blah, blah, blah):
@@ -87,14 +104,13 @@ class Translator:
         startInd = len(SYNTAX_DICTIONARY["def"])
         outputStr += self.currentLine[startInd:len(self.currentLine)]
         print(outputStr)
-        return outputStr
+        self.processingLine = outputStr
 
     def getForDeclaration(self):
         # fur (myhomie i = 0; i < 1; i+=1):
         #fur,(myhomie, i, =, 0;, i, <, 1;, i+=1):
         outputStr = "for "
         outputStr = "i"
-
 
     def getEverythingFromCurLineAfterIndex(self, index):
         print()
@@ -110,7 +126,7 @@ class Translator:
 def main():
     t = Translator(INPUT_FILENAME, OUTPUT_FILENAME)
     t.translate()
-    import output
+
     
     print("PROGRAM FINISH")
 
