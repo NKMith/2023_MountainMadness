@@ -1,0 +1,8 @@
+Variable association - myHomie
+Function Declaration - Fuge
+For-loop - fur
+While-loop - keepgoing
+Print - whatDoYouWant
+Input - whatDoYouWant
+If - This
+Else - That
