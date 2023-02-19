@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="styles.css">
     <script src="textConverter.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <title>Homie Code</title>
 </head>
 <body>
@@ -33,14 +31,9 @@
         </div>
     </div>
 
-    <button id="submit" onclick="createText();">SUBMIT</button>
-    <button id="refresh" onclick="refresh()">REFRESH</button>
-    <button id="submit-button" type="submit">OK</button>
-
-    <py-script>
-        from js import console
-        console.log("TESTING")
-    </py-script>
+    <div id="btn_container">
+       <button id="submit" onclick="createText();">SUBMIT</button> 
+    </div>
 
 </body>
 </html>

@@ -16,7 +16,12 @@ function createText(){
     var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
     saveAs(blob, "inputCode.txt");
 
+	var submit_button = document.getElementById("btn_container");
+	var viewlink = document.createElement("button");
+	viewlink.id = "output.py";
+	submit_button.appendChild(viewlink);
 }
+
 
 
 /* 

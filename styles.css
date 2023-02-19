@@ -55,7 +55,7 @@ textarea {
     opacity: 0.85;
 }
 
-#submit, #refresh {
+#submit, #btn_container {
     border-radius: 15px;
     cursor: pointer;
 }
