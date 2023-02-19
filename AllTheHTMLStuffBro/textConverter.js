@@ -17,8 +17,8 @@ function createText(){
     saveAs(blob, "inputCode.txt");
 
 	var submit_button = document.getElementById("btn_container");
-	var viewlink = document.createElement("button");
-	viewlink.id = "output.py";
+	var viewlink = document.createElement("a");
+	viewlink.href = "output.py";
 	submit_button.appendChild(viewlink);
 }
 
