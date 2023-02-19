@@ -8,10 +8,8 @@
 */
 
 header {
-    font-size: 350%;
-    font-weight: 900;
-    text-align: center;
     margin: 40px auto;
+    padding-left: 35%;
     color: aliceblue
 }
 
