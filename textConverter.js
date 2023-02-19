@@ -15,12 +15,11 @@ function createText(){
 
     var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
     saveAs(blob, "inputCode.txt");
-
 }
 
 
 /* 
-reference: https://sumtips.com/snippets/javascript/tab-in-textarea/#js
+	reference: https://sumtips.com/snippets/javascript/tab-in-textarea/#js
 */
 function insertTab(o, e)
 {		
@@ -49,4 +48,8 @@ function insertTab(o, e)
 		return false;
 	}
 	return true;
+}
+
+function refresh(){
+	location.reload();
 }

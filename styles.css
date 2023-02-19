@@ -8,29 +8,58 @@
 */
 
 header {
-    font-size: 200%;;
-    font-weight: bold;
+    font-size: 350%;
+    font-weight: 900;
     text-align: center;
     margin: 40px auto;
+    color: aliceblue
+}
+
+body {
+    padding:50px;
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Play', sans-serif;
+    background-image: url('Background-.png');
 }
 
 #navigator {
     border: 1px solid black;
     margin: 30px auto;
+    align-items: center;
+    display: flex;
+    background-color: aliceblue;
+    opacity: 0.85;
+}
+
+#syntaxPg, #notDetermined {
+    padding: 20px 45px;
+}
+
+#suprisePg {
+    padding: 20px 100px 20px 45px;
+}
+
+#aboutPg {
+    padding: 20px 45px 20px 100px;
 }
 
 #container {
     align-items: center;
 }
 
-body {
-    padding:50px
+h1 {
+    font-size: medium;
+    color: aliceblue;
 }
 
 textarea {
     width:100%; 
-    height:150px; 
+    height: 250px; 
     margin:10px 0;
+    opacity: 0.85;
 }
 
-
+#submit, #refresh {
+    border-radius: 15px;
+    cursor: pointer;
+}

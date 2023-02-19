@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Play&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="textConverter.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
-    <title>offensive code translator</title>
+    <title>Homie Code</title>
 </head>
 <body>
-
-    <header>Kinda Offensive Coding Language decrypter</header>
+    <header>Homie Code</header>
 
     <section id="navigator">
-        <a href="./syntax.txt">View our unique syntax here</a>
-        <a href="https://github.com/NKMith/2023_MountainMadness.git">About</a>
+        <a href="https://github.com/NKMith/2023_MountainMadness.git" id="aboutPg">About our project</a>
+        <a href="./syntax.txt" id="syntaxPg">View our unique syntax</a>
+        <a href="http://127.0.0.1:5500/artPage.html" id="artPg">Artwork of this application</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="suprisePg">Click for a suprise!</a>
     </section>
 
     <div id="container">
-        <h3> Enter your code below &dArr;</h3>
+        <h1> Enter your Homie Code below &dArr;</h1>
         <textarea id="code" onkeydown="insertTab(this, event);"></textarea>
     </div>
 
     <button id="submit" onclick="createText();">SUBMIT</button>
+    <button id="refresh" onclick="refresh()">REFRESH</button>
 
 </body>
 </html>
