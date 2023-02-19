@@ -50,6 +50,10 @@ class Translator:
             line = self.getWhileDeclaration(line)
         elif firstWord == SYNTAX_DICTIONARY["for"]:
             line = self.getForDeclaration(line)
+        elif firstWord == SYNTAX_DICTIONARY["if"]:
+            line = self.getIfDeclaration(line)
+        elif firstWord == SYNTAX_DICTIONARY["else"]:
+            line = self.getElseDeclaration(line)
 
         return line
         
@@ -139,6 +143,13 @@ class Translator:
             startInd += 1
         lastInd = forLoopStmt.index(')')
         return forLoopStmt[startInd:lastInd]
+
+    def getIfDeclaration(self, ifLine :str):
+        return ifLine.replace("this", "if").replace("(", "").replace(")","")
+
+    def getElseDeclaration(self, elseLine :str):
+        return elseLine.replace("that", "else")
+
 
 
 
