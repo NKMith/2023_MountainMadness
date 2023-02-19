@@ -52,7 +52,7 @@ class Translator:
             line = self.getForDeclaration(line)
         elif firstWord == SYNTAX_DICTIONARY["if"]:
             line = self.getIfDeclaration(line)
-        elif firstWord == SYNTAX_DICTIONARY["else"]:
+        elif SYNTAX_DICTIONARY["else"] in firstWord:
             line = self.getElseDeclaration(line)
 
         return line
