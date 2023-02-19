@@ -6,6 +6,8 @@ SYNTAX_DICTIONARY = {
     "def" : "fudge",
     "for" : "fur",
     "print" : "gundam",
-    "input" : "whatDoYouWant",
-    "while" : "keepgoing"
+    "input" : "whatdoyouyant",
+    "while" : "keepgoing",
+    "if" : "this",
+    "else" : "that"
 }

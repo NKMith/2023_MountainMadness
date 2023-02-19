@@ -3,6 +3,6 @@ Function Declaration - fudge
 For-loop - fur
 While-loop - keepgoing
 Print - gundam
-Input - whatDoYouWant
-If - This
-Else - That
+Input - whatdoyouwant
+If - this
+Else - that
