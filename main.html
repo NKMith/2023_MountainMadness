@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="textConverter.js"></script>
+    <script src="node_modules/file-saver/src/FileSaver.js"></script>
+    <title>offensive code translator</title>
+</head>
+<body>
+
+    <header>Kinda Offensive Coding Language decrypter</header>
+
+    <section id="navigator">
+        <a href="./syntax.txt">View our unique syntax here</a>
+        <a href="https://github.com/NKMith/2023_MountainMadness.git">About</a>
+    </section>
+
+    <div id="container">
+        <h3> Enter your code below &dArr;</h3>
+        <textarea id="code" onkeydown="insertTab(this, event);"></textarea>
+    </div>
+
+    <button id="submit" onclick="createText();">SUBMIT</button>
+
+</body>
+</html>
