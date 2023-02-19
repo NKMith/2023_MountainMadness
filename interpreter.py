@@ -10,12 +10,12 @@ class Translator:
         self.lineToAddAtEndOfBlock = ""
 
         self.tabNum = 0
+        
 
-    
     def translate(self):
         for line in self.file:
             if line == "\n":
-                continue #TODO - Try to get rid of this
+                continue 
 
             self.currentLine = line
             modifiedLine = line
@@ -151,21 +151,16 @@ class Translator:
     def getElseDeclaration(self, elseLine :str):
         return elseLine.replace("that", "else")
 
-
-
-
-    def getStringBetweenParantheses(self, instr :str):
-        startInd = instr.index("(")
-        lastInd = instr.index(")")
-        return str[startInd:lastInd+1]
+    def closeFiles(self):
+        self.file.close()
+        self.outputFile.close()
         
-        
-
-
 
 def main():
     t = Translator(INPUT_FILENAME, OUTPUT_FILENAME)
     t.translate()
+    t.closeFiles()
     print("PROGRAM FINISH")
+    os.remove(DOWNLOAD_PATH + "/"+ INPUT_FILENAME)
 
 main()
