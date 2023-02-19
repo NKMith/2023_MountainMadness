@@ -46,7 +46,7 @@ class Translator:
         if firstWord == SYNTAX_DICTIONARY["var"]:
             line = self.getVarDeclaration(line)
         elif firstWord == SYNTAX_DICTIONARY["def"]:
-            line = self.setDefDeclaration(line)
+            line = self.getDefDeclaration(line)
         elif firstWord == SYNTAX_DICTIONARY["while"]:
             line = self.getWhileDeclaration(line)
         elif firstWord == SYNTAX_DICTIONARY["for"]:
