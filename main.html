@@ -11,12 +11,11 @@
     <script src="textConverter.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
     <title>Homie Code</title>
-    <!-- linking to PyScript assets -->
-    <link rel="stylesheet" href="https://pyscript.net/releases/2022.12.1/pyscript.css" />
-    <script defer src="https://pyscript.net/releases/2022.12.1/pyscript.js"></script>
 </head>
 <body>
-    <header>Homie Code</header>
+    <header>
+        <img src="./Header-Logo.png" width="200" height="200">
+    </header>
 
     <section id="navigator">
         <a href="https://github.com/NKMith/2023_MountainMadness.git" id="aboutPg">About our project</a>
@@ -27,13 +26,13 @@
 
     <div id="container">
         <h1> Enter your Homie Code below &dArr;</h1>
-        <textarea id="code" onkeydown="insertTab(this, event);"></textarea>
+        <div id="test">
+           <textarea id="code" onkeydown="insertTab(this, event);"></textarea> 
+        </div>
     </div>
 
     <button id="submit" onclick="createText();">SUBMIT</button>
     <button id="refresh" onclick="refresh()">REFRESH</button>
-
-    <py-script src="./interpreter.py"></py-script>
 
 </body>
 </html>

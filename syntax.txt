@@ -1,8 +1,18 @@
-Variable association - myhomie
-Function Declaration - fudge
-For-loop - fur
-While-loop - keepgoing
-Print - gundam
-Input - whatdoyouwant
-If - this
-Else - that
+python-equivalent keywords  |   Homie Code syntax   |   example
+--------------------------------------------------------------------------
+Variable association        |   myhomie             |   myhomie num = 4
+                            |                       |
+Function Declaration        |   fudge               |   funge sum(a,b)
+                            |                       |
+For-loop                    |   fur                 |   fur ()
+                            |                       |
+While-loop                  |   keepgoing           |   keepgoing()
+                            |                       |
+Print                       |   gundam              |   gundam("hello world")
+                            |                       |
+Input                       |   whatdoyouwant       |   whatdoyouwant()
+                            |                       |
+If                          |   this                |   this ()
+                            |                       |
+Else                        |   that                |   that
+
