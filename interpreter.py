@@ -1,17 +1,3 @@
-
-# Read homie file
-# Translate
-# Put result in another python file
-# Run
-
-""" 
-Translate
-    use first word in line as key to which function to translate to
-    Translate
-
-
-"""
-
 INPUT_FILENAME = "inputCode.txt"
 OUTPUT_FILENAME = "output.py"
 
@@ -20,7 +6,8 @@ SYNTAX_DICTIONARY = {
     "def" : "fudge",
     "for" : "fur",
     "print" : "gundam",
-    "input" : "whatDoYouWant"
+    "input" : "whatDoYouWant",
+    "while" : "keepgoing"
 }
 
 
@@ -32,19 +19,28 @@ class Translator:
         self.currentLine = ""
         self.processingLine = ""
         self.currentWordList = ""
+        self.lineToAddAtEndOfBlock = ""
+
+        self.tab = 0
+        
 
     def removeNewlineFromProcessedLine(self):
         if self.processingLine[len(self.processingLine)-1] == '\n':
             self.processingLine = self.processingLine[0:len(self.processingLine)-1]
 
-    def removeTab(self):
-        count = self.countTab()
-        self.processingLine = self.processingLine[count:len(self.processingLine)]
+    def removeTabFromProcessedLine(self):
+        self.setTabNum()
+        self.processingLine = self.processingLine[self.tab:len(self.processingLine)]
 
-    def countTab(self):
+    def getTab(self):
+        return self.currentLine[0:self.tab]
+
+    def setTabNum(self):
         count = 0
         while self.currentLine[count] == " ":
             count += 1
+        
+        self.tab = count
         return count
 
     def translate(self):
@@ -59,61 +55,124 @@ class Translator:
             self.currentLine = line
             self.processingLine = line
             self.removeNewlineFromProcessedLine()
-            self.removeTab()
+            self.removeTabFromProcessedLine()
             self.currentWordList = self.currentLine.split()
-
-            outputStr = self.getTab()
             self.determineWhichStatement()
-            outputStr += self.processingLine
-            print("WRITING STR: " + outputStr)
 
-            self.outputFile.write(outputStr + '\n')
 
-    def getTab(self):
-        count = self.countTab()
-        return self.currentLine[0:count]
+            self.writeToFile()
+
+            
+
+    def writeToFile(self):
+        self.processingLine = self.getTab() + self.processingLine + '\n'
+        print("WRITING STR: " + self.processingLine)
+        self.outputFile.write(self.processingLine)
+        
 
     def determineWhichStatement(self):
         # bunch of different if statements
+        print(self.processingLine)
+        self.currentWordList = self.processingLine.split()
         if SYNTAX_DICTIONARY["print"] in self.processingLine:
             self.processingLine = self.processingLine.replace(SYNTAX_DICTIONARY["print"], "print")
 
         if SYNTAX_DICTIONARY["input"] in self.processingLine:
             self.processingLine = self.processingLine.replace(SYNTAX_DICTIONARY["input"], "input")
 
+        if "++" in self.processingLine:
+            self.processingLine = self.processingLine.replace("++", "+= 1")
+        
+        if "--" in self.processingLine:
+            self.processingLine = self.processingLine.replace("--", "-= 1")
+
 
         firstWord = self.currentWordList[0].lower()
         if firstWord == SYNTAX_DICTIONARY["var"]:
-            self.getVarDeclaration()
+            self.setVarDeclaration()
         elif firstWord == SYNTAX_DICTIONARY["def"]:
-            self.getFunctionDeclaration()
+            self.setDefDeclaration()
+        elif firstWord == SYNTAX_DICTIONARY["while"]:
+            self.setWhileDeclaration()
+        elif firstWord == SYNTAX_DICTIONARY["for"]:
+            self.setForDeclaration()
 
 
-    def getVarDeclaration(self):
+    def setVarDeclaration(self):
         # myHomie i = 100
-        print("VAR DECLARATION")
-        print(self.processingLine)
         startInd = len(SYNTAX_DICTIONARY["var"]) + 1
         self.processingLine = self.processingLine[startInd:len(self.currentLine)]
         #return self.processingLine[startInd:len(self.currentLine)]
         
-    def getFunctionDeclaration(self):
+    def setDefDeclaration(self):
         #fudge funcName(blah, blah, blah):
-        print("FUNCTION DECLARATION")
         outputStr = "def "
         startInd = len(SYNTAX_DICTIONARY["def"])
         outputStr += self.currentLine[startInd:len(self.currentLine)]
-        print(outputStr)
         self.processingLine = outputStr
 
-    def getForDeclaration(self):
+    def setWhileDeclaration(self):
+        self.processingLine.replace("(", "")
+        self.processingLine.replace(")", "")
+
+    def setForDeclaration(self):
         # fur (myhomie i = 0; i < 1; i+=1):
         #fur,(myhomie, i, =, 0;, i, <, 1;, i+=1):
-        outputStr = "for "
-        outputStr = "i"
+        print("FOR LOOP: ------------------" + self.processingLine)
+        # eval initialization
 
-    def getEverythingFromCurLineAfterIndex(self, index):
-        print()
+        tmp = self.processingLine
+        print(self.getForLoopInitStr())
+        print(self.getForLoopConditionStr())
+        print(self.getForLoopUpdateStr())
+
+
+        self.processingLine = self.getForLoopInitStr()
+        self.determineWhichStatement()
+        self.writeToFile()
+
+        self.processingLine = tmp
+        self.processingLine = "while " + self.getForLoopConditionStr() + ":"
+        self.writeToFile()
+
+        self.processingLine = tmp
+        self.processingLine = "    " + self.getForLoopUpdateStr() #TODO - Hardcoded 
+        #self.writeToFile() #TODO - Need to add update statement at the end of the while loop
+
+        #self.processingLine = ""
+        
+        
+        
+
+
+
+
+        
+    def getForLoopInitStr(self) -> str:
+        startInd = self.processingLine.index("(")
+        lastInd = self.processingLine.index(';')
+        return self.processingLine[startInd+1:lastInd]
+
+    def getForLoopConditionStr(self) -> str:
+        startInd = self.processingLine.index(";") + 1
+        while self.processingLine[startInd] == " ":
+            startInd += 1
+        lastInd = startInd + self.processingLine[startInd+1:len(self.processingLine)].index(';') #Find second ;
+        return self.processingLine[startInd:lastInd+1]
+
+    def getForLoopUpdateStr(self) -> str:
+        initSemi = self.processingLine.index(';') + 1
+        #print(self.processingLine[initSemi:])
+        startInd = initSemi + self.processingLine[initSemi:].index(';') + 1
+        while self.processingLine[startInd] == " ":
+            startInd += 1
+        lastInd = self.processingLine.index(')')
+        return self.processingLine[startInd:lastInd]
+
+        # fur (myhomie i = 0; i < 1; i+=1):
+        # init = 18; expected startInd = 25
+
+
 
     def getStringBetweenParantheses(self, instr :str):
         startInd = instr.index("(")
@@ -121,6 +180,8 @@ class Translator:
         return str[startInd:lastInd+1]
         
         
+
+
 
 
 def main():
