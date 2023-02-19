@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="styles.css">
     <script src="textConverter.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+Click here for more info on how to use PyScript.
+
+Please be advised that PyScript is very alpha and under heavy development. There are many known issues, from usability to loading times, and you should expect things to change often. We encourage people to play and explore with PyScript, but at this time we do not recommend using it for production.
+pyscript_dev
     <title>Homie Code</title>
 </head>
 <body>
@@ -33,6 +40,13 @@
 
     <button id="submit" onclick="createText();">SUBMIT</button>
     <button id="refresh" onclick="refresh()">REFRESH</button>
+    <button id="submit-button" type="submit" pys-onClick="my_function">OK</button>
+
+    <py-script>
+        from js import console
+        def print():
+            console.log("TESTING")
+    </py-script>
 
 </body>
 </html>
