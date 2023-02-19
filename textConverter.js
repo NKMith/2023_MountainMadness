@@ -11,10 +11,11 @@ function createText(){
     } else {
         code = null;
     }
-    console.log(code);
+    //console.log(code);
 
     var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
     saveAs(blob, "inputCode.txt");
+
 }
 
 

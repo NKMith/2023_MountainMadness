@@ -162,13 +162,9 @@ class Translator:
 
 
 
-
 def main():
     t = Translator(INPUT_FILENAME, OUTPUT_FILENAME)
     t.translate()
-
-    
     print("PROGRAM FINISH")
-
 
 main()
