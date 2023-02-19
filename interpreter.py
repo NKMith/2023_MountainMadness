@@ -3,8 +3,8 @@ import os
 
 class Translator:
     def __init__(self, inputFileName :str, outputFileName :str):
-        self.file = open(inputFileName, "r")
-        self.outputFile = open( DOWNLOAD_PATH + "/"+ outputFileName, "w+")
+        self.file = open(DOWNLOAD_PATH + "/"+ inputFileName, "r")
+        self.outputFile = open(outputFileName, "w+")
 
         self.currentLine = ""
         self.lineToAddAtEndOfBlock = ""
