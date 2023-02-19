@@ -11,3 +11,6 @@ SYNTAX_DICTIONARY = {
     "if" : "this",
     "else" : "that"
 }
+
+import os
+DOWNLOAD_PATH = os.path.expanduser('~/Downloads') #string
