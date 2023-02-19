@@ -1,15 +1,4 @@
-INPUT_FILENAME = "inputCode.txt"
-OUTPUT_FILENAME = "output.py"
-
-SYNTAX_DICTIONARY = {
-    "var" : "myhomie",
-    "def" : "fudge",
-    "for" : "fur",
-    "print" : "gundam",
-    "input" : "whatDoYouWant",
-    "while" : "keepgoing"
-}
-
+from env import *
 
 class Translator:
     def __init__(self, inputFileName :str, outputFileName :str):
@@ -21,7 +10,7 @@ class Translator:
         self.currentWordList = ""
         self.lineToAddAtEndOfBlock = ""
 
-        self.tab = 0
+        self.tabNum = 0
         
 
     def removeNewlineFromProcessedLine(self):
@@ -29,18 +18,19 @@ class Translator:
             self.processingLine = self.processingLine[0:len(self.processingLine)-1]
 
     def removeTabFromProcessedLine(self):
-        self.setTabNum()
-        self.processingLine = self.processingLine[self.tab:len(self.processingLine)]
+        self.processingLine = self.processingLine[self.tabNum:len(self.processingLine)]
 
     def getTab(self):
-        return self.currentLine[0:self.tab]
+        mystr = ""
+        for i in range(self.tabNum):
+            mystr += " "
+        return mystr
 
     def setTabNum(self):
         count = 0
         while self.currentLine[count] == " ":
             count += 1
-        
-        self.tab = count
+        self.tabNum = count
         return count
 
     def translate(self):
@@ -54,15 +44,29 @@ class Translator:
 
             self.currentLine = line
             self.processingLine = line
+            prevTabNum = self.tabNum
+            if self.setTabNum() < prevTabNum:
+                self.writeStatementToEndOfBlock()
+                self.lineToAddAtEndOfBlock = ""
+
             self.removeNewlineFromProcessedLine()
             self.removeTabFromProcessedLine()
+            
             self.currentWordList = self.currentLine.split()
             self.determineWhichStatement()
 
 
             self.writeToFile()
 
-            
+        if self.lineToAddAtEndOfBlock != "":
+            self.processingLine = self.lineToAddAtEndOfBlock
+            self.writeToFile()
+
+    def writeStatementToEndOfBlock(self):
+        tmp = self.processingLine
+        self.processingLine = "    " + self.lineToAddAtEndOfBlock
+        self.writeToFile()
+        self.processingLine = tmp
 
     def writeToFile(self):
         self.processingLine = self.getTab() + self.processingLine + '\n'
@@ -132,14 +136,18 @@ class Translator:
         self.writeToFile()
 
         self.processingLine = tmp
+        self.lineToAddAtEndOfBlock = self.getForLoopUpdateStr()
         self.processingLine = "while " + self.getForLoopConditionStr() + ":"
-        self.writeToFile()
+        #self.writeToFile()
 
-        self.processingLine = tmp
-        self.processingLine = "    " + self.getForLoopUpdateStr() #TODO - Hardcoded 
+        #self.processingLine = tmp
+        #self.lineToAddAtEndOfBlock = self.getForLoopUpdateStr()
+        #self.processingLine = "    " + self.getForLoopUpdateStr() #TODO - Hardcoded
         #self.writeToFile() #TODO - Need to add update statement at the end of the while loop
 
         #self.processingLine = ""
+
+        
         
         
         

@@ -1,0 +1,2 @@
+fur (myhomie i = 1; i < 10; i++):
+    gundam("OH MY GOSH")

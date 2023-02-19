@@ -1,8 +1,8 @@
-Variable association - myHomie
-Function Declaration - Fuge
+Variable association - myhomie
+Function Declaration - fudge
 For-loop - fur
 While-loop - keepgoing
-Print - whatDoYouWant
+Print - gundam
 Input - whatDoYouWant
 If - This
 Else - That
